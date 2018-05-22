@@ -109,7 +109,23 @@ Matrix4 * MatrixMultiply(Matrix4 * pOut, CONST Matrix4 * pM1, CONST Matrix4 * pM
 	m1 = pM1;
 	m2 = pM2;
 	out = m1 * m2;
-	pOut = out;
+	pOut->_11 = out._11;
+	pOut->_12 = out._12;
+	pOut->_13 = out._13;
+	pOut->_14 = out._14;
+	pOut->_21 = out._21;
+	pOut->_22 = out._22;
+	pOut->_23 = out._23;
+	pOut->_24 = out._24;
+	pOut->_31 = out._31;
+	pOut->_32 = out._32;
+	pOut->_33 = out._33;
+	pOut->_34 = out._34;
+	pOut->_41 = out._41;
+	pOut->_42 = out._42;
+	pOut->_43 = out._43;
+	pOut->_44 = out._44;
+
 	return pOut;
 }
 

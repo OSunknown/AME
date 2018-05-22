@@ -16,7 +16,38 @@
 
 struct Plane {
 public:
-	FLOAT a, b, c, d;
+	float a;
+	float b;
+	float c;
+	float d;
+public:
+	Plane() : a(0), b(0), c(0), d(0) {};
+	Plane(CONST FLOAT *);
+	Plane(CONST Plane * );
+	Plane(FLOAT a, FLOAT b, FLOAT c, FLOAT d) : a(a), b(b), c(c), d(d) {};
+
+	// casting
+	operator FLOAT* ();
+	operator CONST FLOAT* () const;
+
+	// assignment operators
+	Plane& operator *= (FLOAT);
+	Plane& operator /= (FLOAT);
+
+	// unary operators
+	Plane operator + () const;
+	Plane operator - () const;
+
+	// binary operators
+	Plane operator * (FLOAT) const;
+	Plane operator / (FLOAT) const;
+
+	friend Plane operator * (FLOAT, CONST Plane&);
+
+	BOOL operator == (CONST Plane&) const;
+	BOOL operator != (CONST Plane&) const;
+
+
 };
 
 Matrix4* MatrixRotationYawPitchRoll(Matrix4*, FLOAT, FLOAT, FLOAT);

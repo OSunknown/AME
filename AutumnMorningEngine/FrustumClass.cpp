@@ -156,7 +156,6 @@ bool FrustumClass::CheckSphere(float xCenter, float yCenter, float zCenter, floa
 {
 	int i;
 
-
 	// Check if the radius of the sphere is inside the view frustum.
 	for(i=0; i<6; i++) 
 	{
