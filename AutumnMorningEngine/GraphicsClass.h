@@ -13,7 +13,6 @@
 #include "LightShaderClass.h"
 #include "ModelListClass.h"
 #include "FrustumClass.h"
-
 #include"Debug.h"
 /////////////
 // GLOBALS //

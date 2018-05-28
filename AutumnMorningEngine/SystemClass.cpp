@@ -32,7 +32,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	default:
 		return ApplicationHandle->MessageHandler(hWnd, msg, wParam, lParam);
 	}
-	
+
 }
 
 LRESULT CALLBACK SystemClass::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam)
@@ -45,7 +45,7 @@ bool SystemClass::Initialize()
 	int screenWidth, screenHeight;
 	bool result;
 
-	m_applicationName	= L"AutumnMorning Engine";
+	m_applicationName = L"AutumnMorning Engine";
 	m_hInstance = GetModuleHandle(NULL);
 	ApplicationHandle = this;
 	InitializeWindows(screenWidth, screenHeight);
@@ -72,7 +72,7 @@ bool SystemClass::Initialize()
 	{
 		return false;
 	}
-	
+
 	// Create the timer object.
 	m_Timer = new TimerClass;
 	if (!m_Timer)
@@ -144,16 +144,16 @@ void SystemClass::InitializeWindows(int& screenWidth, int& screenHeight)
 		posY = (GetSystemMetrics(SM_CYSCREEN) - screenHeight) / 2;
 	}
 
-	
+
 	m_hWnd = CreateWindowEx(WS_EX_APPWINDOW, m_applicationName,
 		m_applicationName,
-		WS_OVERLAPPEDWINDOW,// | WS_DLGFRAME | WS_CLIPCHILDREN | WS_POPUP, // <- 이게 뭔지 모르니 검색할것
+		WS_POPUP,//WS_OVERLAPPEDWINDOW,// | WS_DLGFRAME | WS_CLIPCHILDREN | WS_POPUP, // <- 이게 뭔지 모르니 검색할것
 		posX, posY, screenWidth, screenHeight,
 		GetDesktopWindow(), nullptr, m_hInstance, nullptr);
-		//WS_OVERLAPPEDWINDOW : 상단 바 있음 (아이콘, 파일명,최소화,최대화, 종료 버튼 있음)
-		//WS_CLIPSIBLINGS :
-		//WS_CLIPCHILDREN :
-		//WS_POPUP : 상단 바 없어짐
+	//WS_OVERLAPPEDWINDOW : 상단 바 있음 (아이콘, 파일명,최소화,최대화, 종료 버튼 있음)
+	//WS_CLIPSIBLINGS :
+	//WS_CLIPCHILDREN :
+	//WS_POPUP : 상단 바 없어짐
 	ShowWindow(m_hWnd, SW_SHOW);
 	SetForegroundWindow(m_hWnd);
 	SetFocus(m_hWnd);
@@ -189,7 +189,7 @@ void SystemClass::Shutdown()
 	if (m_Input)
 	{
 		delete m_Input;
-		m_Input = 0; 
+		m_Input = 0;
 	}
 
 	ShutdownWindows();
@@ -199,7 +199,7 @@ void SystemClass::Shutdown()
 void SystemClass::ShutdownWindows()
 {
 	ShowCursor(true);
-	if(FULL_SCREEN)
+	if (FULL_SCREEN)
 	{
 		ChangeDisplaySettings(NULL, 0);
 	}

@@ -207,7 +207,7 @@ bool GraphicsClass::Frame(float rotationY)
 	
 	// Set the rotation of the camera.
 	m_Camera->SetRotation(0.0f, rotationY, 0.0f);
-	Debug::Log(rotationY);
+	
 	return true;
 }
 
