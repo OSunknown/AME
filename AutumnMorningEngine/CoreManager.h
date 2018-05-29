@@ -1,14 +1,12 @@
 #pragma once
 #include <vcclr.h> 
 #include "MyForm.h"
-using namespace System;
-using namespace System::Windows::Forms;
-using namespace AutumnMorningEngine;
 class CoreManager
 {
+	
 private:
 	int abc;
-	//gcroot<AutumnMorningEngine::MyForm^> mainform;
+	gcroot<AutumnMorningEngine::MyForm^> mainform;
 	static CoreManager* instance_;
 
 public:
@@ -25,18 +23,25 @@ public:
 	{
 		return abc;
 	}
+	void SetForm(gcroot<AutumnMorningEngine::MyForm^>  form)
+	{
+		mainform = form;
+	}
+	void GetForm()
+	{
+		mainform->Show();
+	}
+	void GetD3DView(int & W, int & H , System::IntPtr & Handle)
+	{
+		mainform->GetD3DView(W, H, Handle);
+	}
 	void Initialize()
 	{
-		Application::EnableVisualStyles();
-
-		Application::SetCompatibleTextRenderingDefault(false);
+		
 		/*AutumnMorningEngine::MyForm ^ form = gcnew AutumnMorningEngine::MyForm;
 */
 		/*mainform = form;*/
 		
-/*
-		AutumnMorningEngine::MyForm form;
-		form.Show();*/
 	}
 public:
 	 

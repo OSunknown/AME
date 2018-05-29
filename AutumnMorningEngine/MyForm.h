@@ -22,7 +22,12 @@ namespace AutumnMorningEngine {
 			//TODO: 생성자 코드를 여기에 추가합니다.
 			//
 		}
-
+		void GetD3DView(int &w, int &h, System::IntPtr &Handle)
+		{
+			w = panel1->Size.Width;
+			h = panel1->Size.Height;
+			Handle = panel1->Handle;
+		}
 	protected:
 		/// <summary>
 		/// 사용 중인 모든 리소스를 정리합니다.
@@ -39,6 +44,7 @@ namespace AutumnMorningEngine {
 	private: System::Windows::Forms::TabPage^  tabPage1;
 	private: System::Windows::Forms::TabPage^  tabPage2;
 	private: System::Windows::Forms::Panel^  panel1;
+	private: System::Windows::Forms::TreeView^  treeView1;
 
 	private:
 		/// <summary>
@@ -55,8 +61,9 @@ namespace AutumnMorningEngine {
 		{
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
-			this->tabPage2 = (gcnew System::Windows::Forms::TabPage());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->tabPage2 = (gcnew System::Windows::Forms::TabPage());
+			this->treeView1 = (gcnew System::Windows::Forms::TreeView());
 			this->tabControl1->SuspendLayout();
 			this->tabPage1->SuspendLayout();
 			this->SuspendLayout();
@@ -73,6 +80,7 @@ namespace AutumnMorningEngine {
 			// 
 			// tabPage1
 			// 
+			this->tabPage1->Controls->Add(this->treeView1);
 			this->tabPage1->Controls->Add(this->panel1);
 			this->tabPage1->Location = System::Drawing::Point(4, 22);
 			this->tabPage1->Name = L"tabPage1";
@@ -82,6 +90,14 @@ namespace AutumnMorningEngine {
 			this->tabPage1->Text = L"tabPage1";
 			this->tabPage1->UseVisualStyleBackColor = true;
 			this->tabPage1->Click += gcnew System::EventHandler(this, &MyForm::tabPage1_Click);
+			// 
+			// panel1
+			// 
+			this->panel1->Location = System::Drawing::Point(252, 0);
+			this->panel1->Name = L"panel1";
+			this->panel1->Size = System::Drawing::Size(548, 549);
+			this->panel1->TabIndex = 0;
+			this->panel1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::panel1_Paint);
 			// 
 			// tabPage2
 			// 
@@ -93,13 +109,13 @@ namespace AutumnMorningEngine {
 			this->tabPage2->Text = L"tabPage2";
 			this->tabPage2->UseVisualStyleBackColor = true;
 			// 
-			// panel1
+			// treeView1
 			// 
-			this->panel1->Location = System::Drawing::Point(252, 81);
-			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(518, 353);
-			this->panel1->TabIndex = 0;
-			this->panel1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::panel1_Paint);
+			this->treeView1->Location = System::Drawing::Point(8, 19);
+			this->treeView1->Name = L"treeView1";
+			this->treeView1->Size = System::Drawing::Size(229, 255);
+			this->treeView1->TabIndex = 1;
+			this->treeView1->AfterSelect += gcnew System::Windows::Forms::TreeViewEventHandler(this, &MyForm::treeView1_AfterSelect);
 			// 
 			// MyForm
 			// 
@@ -122,5 +138,7 @@ namespace AutumnMorningEngine {
 	}
 	private: System::Void panel1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
 	}
-};
+	private: System::Void treeView1_AfterSelect(System::Object^  sender, System::Windows::Forms::TreeViewEventArgs^  e) {
+	}
+	};
 }

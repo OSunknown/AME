@@ -252,7 +252,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MyForm2.resx">
+    <EmbeddedResource Include="MyForm.resx">
       <Filter>리소스 파일</Filter>
     </EmbeddedResource>
   </ItemGroup>

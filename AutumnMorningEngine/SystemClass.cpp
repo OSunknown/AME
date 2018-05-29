@@ -97,23 +97,30 @@ bool SystemClass::Initialize()
 
 	return true;
 }
-
+using namespace System;
+using namespace System::Runtime::InteropServices;
+[DllImport("user32.dll", SetLastError = true)]
+IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+[STAThread]
 void SystemClass::InitializeWindows(int& screenWidth, int& screenHeight)
 {
 	WNDCLASSEX wc;
-	wc.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
-	wc.style = CS_HREDRAW | CS_VREDRAW;
-	wc.cbSize = sizeof(WNDCLASSEX);
-	wc.hCursor = LoadCursor(nullptr, IDC_ARROW);
-	wc.hIconSm = wc.hIcon;
-	wc.hInstance = m_hInstance;
+	wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+	wc.lpfnWndProc = WndProc;
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
-	wc.lpfnWndProc = (WNDPROC)WndProc;
-	wc.lpszMenuName = MAKEINTRESOURCE(109);
-	wc.lpszClassName = m_applicationName;
+	wc.hInstance = m_hInstance;
+	wc.hIcon = LoadIcon(NULL, IDI_WINLOGO);
+	wc.hIconSm = wc.hIcon;
+	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
+	wc.lpszMenuName = NULL;
+	wc.lpszClassName = m_applicationName;
+	wc.cbSize = sizeof(WNDCLASSEX);
 
+	System::IntPtr handle;
+	int Wsize,Hsize;
+	CoreManager::Getsingleton()->GetD3DView(Wsize, Hsize, handle);
 
 	RegisterClassEx(&wc);
 
@@ -140,21 +147,23 @@ void SystemClass::InitializeWindows(int& screenWidth, int& screenHeight)
 		screenWidth = 800;
 		screenHeight = 600;
 
-		posX = (GetSystemMetrics(SM_CXSCREEN) - screenWidth) / 2;
-		posY = (GetSystemMetrics(SM_CYSCREEN) - screenHeight) / 2;
+		posX = 0;//(GetSystemMetrics(SM_CXSCREEN) - screenWidth) / 2;
+		posY = 0;// (GetSystemMetrics(SM_CYSCREEN) - screenHeight) / 2;
 	}
 
 
 	m_hWnd = CreateWindowEx(WS_EX_APPWINDOW, m_applicationName,
 		m_applicationName,
-		WS_POPUP,//WS_OVERLAPPEDWINDOW,// | WS_DLGFRAME | WS_CLIPCHILDREN | WS_POPUP, // <- 이게 뭔지 모르니 검색할것
-		posX, posY, screenWidth, screenHeight,
-		GetDesktopWindow(), nullptr, m_hInstance, nullptr);
+		 WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_POPUP,//WS_OVERLAPPEDWINDOW,// | WS_DLGFRAME | WS_CLIPCHILDREN | WS_POPUP, // <- 이게 뭔지 모르니 검색할것
+		posX, posY, Wsize, Hsize,
+		nullptr, nullptr, m_hInstance, nullptr);
 	//WS_OVERLAPPEDWINDOW : 상단 바 있음 (아이콘, 파일명,최소화,최대화, 종료 버튼 있음)
 	//WS_CLIPSIBLINGS :
 	//WS_CLIPCHILDREN :
 	//WS_POPUP : 상단 바 없어짐
+	SetParent((System::IntPtr) m_hWnd, handle);
 	ShowWindow(m_hWnd, SW_SHOW);
+	
 	SetForegroundWindow(m_hWnd);
 	SetFocus(m_hWnd);
 

@@ -13,6 +13,7 @@
 #include "InputClass.h"
 #include "TimerClass.h"
 #include "PositionClass.h"
+#include "CoreManager.h"
 class SystemClass
 {
 public:

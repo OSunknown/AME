@@ -4,12 +4,20 @@
 #include "CoreManager.h"
 using namespace System;
 using namespace System::Windows::Forms;
-
+using namespace AutumnMorningEngine;
 [STAThreadAttribute]
 void main() 
 {
+	Application::EnableVisualStyles();
+
+	Application::SetCompatibleTextRenderingDefault(false);
+
+	AutumnMorningEngine::MyForm ^ form = gcnew AutumnMorningEngine::MyForm;
+	
+
 	CoreManager::Getsingleton()->SetInt(15);
-	CoreManager::Getsingleton()->Initialize();
+	CoreManager::Getsingleton()->SetForm(form);
+	CoreManager::Getsingleton()->GetForm();
 	SystemClass* System;
 	bool result;
 	
