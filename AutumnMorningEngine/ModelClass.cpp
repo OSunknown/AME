@@ -278,7 +278,7 @@ bool ModelClass::LoadModel(char* filename)
 		fin.get(input);
 	}
 	fin.get(input);
-	fin.get(input);
+	//fin.get(input);
 
 	// Read in the vertex data.
 	for (i = 0; i<m_vertexCount; i++)

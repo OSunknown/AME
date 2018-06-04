@@ -9,37 +9,33 @@ using namespace AutumnMorningEngine;
 void main() 
 {
 	Application::EnableVisualStyles();
-
 	Application::SetCompatibleTextRenderingDefault(false);
 
 	AutumnMorningEngine::MyForm ^ form = gcnew AutumnMorningEngine::MyForm;
 	
-
-	CoreManager::Getsingleton()->SetInt(15);
-	CoreManager::Getsingleton()->SetForm(form);
-	CoreManager::Getsingleton()->GetForm();
-	SystemClass* System;
-	bool result;
-	
-	
-	System = new SystemClass;
-	if (!System)
-	{
-		return;
-	}
 	if (AllocConsole())
 	{
 		freopen("CONOUT$", "w", stdout);
 	}
+	CoreManager::Getsingleton()->SetInt(15);
+	CoreManager::Getsingleton()->Initialize(form);
+	bool result;
+	SystemClass::GetSignleton();
+	
+	//System = new SystemClass;
+	/*if (!SystemClass::GetSignleton())
+	{
+		return;
+	}*/
+	
 		
-	result = System->Initialize();
+	result = SystemClass::GetSignleton().Initialize();
 	if (result)
 	{
-		System->Run();
+		SystemClass::GetSignleton().Run();
 	}
-	System->Shutdown();
-	delete System;
-	System = 0;
+	SystemClass::GetSignleton().Shutdown();
+	//delete SystemClass::GetSignleton();
 
 	return;
 }

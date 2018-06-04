@@ -1,6 +1,5 @@
 #include "SystemClass.h"
-
-
+#include "Debug.h"
 
 SystemClass::SystemClass()
 {
@@ -119,13 +118,13 @@ void SystemClass::InitializeWindows(int& screenWidth, int& screenHeight)
 	wc.cbSize = sizeof(WNDCLASSEX);
 
 	System::IntPtr handle;
-	int Wsize,Hsize;
+	int Wsize, Hsize;
 	CoreManager::Getsingleton()->GetD3DView(Wsize, Hsize, handle);
 
 	RegisterClassEx(&wc);
 
-	screenWidth = GetSystemMetrics(SM_CXSCREEN);
-	screenHeight = GetSystemMetrics(SM_CXSCREEN);
+	screenWidth = Wsize;//GetSystemMetrics(SM_CXSCREEN);
+	screenHeight = Hsize;// GetSystemMetrics(SM_CXSCREEN);
 
 	DEVMODE dmScreenSettings;
 	int posX, posY;
@@ -144,17 +143,16 @@ void SystemClass::InitializeWindows(int& screenWidth, int& screenHeight)
 	}
 	else
 	{
-		screenWidth = 800;
-		screenHeight = 600;
+		screenWidth = Wsize;//GetSystemMetrics(SM_CXSCREEN);
+		screenHeight = Hsize;// GetSystemMetrics(SM_CXSCREEN);
 
 		posX = 0;//(GetSystemMetrics(SM_CXSCREEN) - screenWidth) / 2;
 		posY = 0;// (GetSystemMetrics(SM_CYSCREEN) - screenHeight) / 2;
 	}
 
-
 	m_hWnd = CreateWindowEx(WS_EX_APPWINDOW, m_applicationName,
 		m_applicationName,
-		 WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_POPUP,//WS_OVERLAPPEDWINDOW,// | WS_DLGFRAME | WS_CLIPCHILDREN | WS_POPUP, // <- 이게 뭔지 모르니 검색할것
+		WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_POPUP,//WS_OVERLAPPEDWINDOW,// | WS_DLGFRAME | WS_CLIPCHILDREN | WS_POPUP, // <- 이게 뭔지 모르니 검색할것
 		posX, posY, Wsize, Hsize,
 		nullptr, nullptr, m_hInstance, nullptr);
 	//WS_OVERLAPPEDWINDOW : 상단 바 있음 (아이콘, 파일명,최소화,최대화, 종료 버튼 있음)
@@ -163,7 +161,7 @@ void SystemClass::InitializeWindows(int& screenWidth, int& screenHeight)
 	//WS_POPUP : 상단 바 없어짐
 	SetParent((System::IntPtr) m_hWnd, handle);
 	ShowWindow(m_hWnd, SW_SHOW);
-	
+
 	SetForegroundWindow(m_hWnd);
 	SetFocus(m_hWnd);
 
@@ -224,6 +222,127 @@ void SystemClass::ShutdownWindows()
 	return;
 
 }
+//
+//void SystemClass::FindFiles(char * centerPath)
+//{
+//	_finddata_t fd;
+//	long handle2;
+//	int result = 1;
+//	static char *AssetsRoot = ".\\Assets\\";
+//	static char *AllFIle = "*.*";
+//
+//	char FilePath[255] = "", *AllFilePath = "";
+//	size_t my_len = strlen(centerPath);
+//	printf("%u\n", my_len);
+//	if (my_len > 0)
+//	{
+//		sprintf(FilePath, "%s\\%s", centerPath, AllFIle);
+//	}
+//	else
+//	{
+//		sprintf(FilePath, "%s%s", AssetsRoot, AllFIle);
+//	}
+//	//printf("%s \n",FilePath);
+//
+//	handle2 = _findfirst(FilePath, &fd);  //현재 폴더 내 모든 파일을 찾는다.
+//
+//	if (handle2 == -1)
+//	{
+//		printf("There were no files.\n");
+//		return;
+//	}
+//	char cFilePath[255] = "";
+//	// . 과 .. 파일을 넘어가기위해서 
+//	result = _findnext(handle2, &fd);
+//	result = _findnext(handle2, &fd);
+//	while (result != -1)
+//	{
+//		//printf("%s\n", fd.name);
+//		//printf("File: %s FileType :", fd.name);
+//
+//		if (my_len > 0)
+//		{
+//			sprintf(cFilePath, "%s\\%s", centerPath, fd.name);
+//		}
+//		else
+//		{
+//			sprintf(cFilePath, "%s%s", AssetsRoot, fd.name);
+//		}
+//
+//		int c = isFileOrDir(cFilePath);
+//		printf("%s\n", cFilePath);
+//		CoreManager::Getsingleton()->AddContextItem(fd.name, c);
+//		switch (c)
+//		{
+//		case 0:
+//			/*printf("{\n");
+//			FindFiles(cFilePath);
+//			printf("}\n");*/
+//			break;
+//		}
+//
+//		/*size_t my_len = strlen(fd.name);
+//		printf("%u\n", my_len);*/
+//		result = _findnext(handle2, &fd);
+//	}
+//
+//	_findclose(handle2);
+//}
+//
+//int SystemClass::isFileOrDir(char * s)
+//{
+//	_finddatai64_t c_file;
+//	intptr_t hFile;
+//	int result;
+//	char  drive[_MAX_PATH];
+//	char  dir[_MAX_PATH];
+//	char  fname[_MAX_PATH];
+//	char  ext[_MAX_PATH];
+//	char fullpath[_MAX_PATH];
+//	_fullpath(fullpath, s, _MAX_PATH);
+//
+//	if ((hFile = _findfirsti64(s, &c_file)) == -1L)
+//		result = -1; // 파일 또는 디렉토리가 없으면 -1 반환
+//	else
+//		if (c_file.attrib & _A_SUBDIR)
+//		{
+//			result = 0; // 디렉토리면 0 반환
+//		}
+//		else
+//		{
+//			_splitpath(fullpath, drive, dir, fname, ext);
+//			string str = ext;
+//
+//			if (str == ".obj" || str == ".OBJ")
+//			{
+//				result = 1;
+//			}
+//			else if (str == ".fbx")
+//			{
+//				result = 2;
+//			}
+//			else if (str == ".txt")
+//			{
+//				result = 3;
+//			}
+//			else if (str == "")
+//			{
+//				result = 4; 
+//			}
+//			else
+//			{
+//				// 그밖의 경우는 "존재하는 파일"이기에 1 반환
+//				// 이미지 만들기 전이니까 그냥 1.. 
+//				result = 1;
+//			}
+//			
+//		}
+//
+//
+//	_findclose(hFile);
+//
+//	return result;
+//}
 
 void SystemClass::Run()
 {

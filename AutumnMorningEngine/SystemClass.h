@@ -14,13 +14,19 @@
 #include "TimerClass.h"
 #include "PositionClass.h"
 #include "CoreManager.h"
+#include "FileManager.h"
 class SystemClass
 {
 public:
 	SystemClass();
 	SystemClass(const SystemClass&);
 	~SystemClass();
-
+	static SystemClass& GetSignleton()
+	{
+		static SystemClass* instance_ = new SystemClass();
+		return *instance_;
+	}
+	
 	bool Initialize();
 	void Shutdown();
 	void Run();
@@ -32,6 +38,8 @@ private:
 	void InitializeWindows(int& , int& );
 	void ShutdownWindows();
 
+	//void FindFiles(char * centerPath);
+	//int isFileOrDir(char* s);
 private:
 
 	LPCWSTR m_applicationName;

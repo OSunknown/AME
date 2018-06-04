@@ -166,6 +166,7 @@
     <ClInclude Include="ColorShaderClass.h" />
     <ClInclude Include="CoreManager.h" />
     <ClInclude Include="D3DClass.h" />
+    <ClInclude Include="FileManager.h" />
     <ClInclude Include="FontClass.h" />
     <ClInclude Include="FontShaderClass.h" />
     <ClInclude Include="FrustumClass.h" />
@@ -185,6 +186,7 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="PositionClass.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="SystemClass.h" />
     <ClInclude Include="TextClass.h" />
