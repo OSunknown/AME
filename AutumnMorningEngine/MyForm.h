@@ -26,7 +26,7 @@ namespace AutumnMorningEngine {
 			//TODO: 생성자 코드를 여기에 추가합니다.
 			//
 			listView1->View = View::LargeIcon;
-			listView1->TileSize = System::Drawing::Size(120, 120);
+			listView1->TileSize = System::Drawing::Size(72, 72);
 			imageList1 = gcnew ImageList();
 			//System::Drawing::Icon("book.ico")
 			imageList1->ImageSize = System::Drawing::Size(64, 64);
@@ -301,6 +301,7 @@ namespace AutumnMorningEngine {
 			listview->Clear();
 			FileManager::Getsingleton()->ChangePath(msclr::interop::marshal_as<std::string>(s).c_str());
 			SetListView();
+			return;
 		}
 		if (listView1->Items[i]->ImageIndex == 1) //obj
 		{

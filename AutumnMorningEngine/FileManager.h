@@ -76,7 +76,6 @@ public:
 		long handle;
 		int result = 1;
 		char FilePath[_MAX_PATH] = "";
-		
 		sprintf(FilePath, "%s\\%s", path, AllFIle);
 		folder.path = path;
 		folder.parentsPath = parents;
@@ -111,6 +110,11 @@ public:
 				sprintf(cFilePath, "%s\\%s", path, it->second.c_str());
 				FindFolder(cFilePath,path);
 				//printf("\n");
+			}
+
+			if (folder.types[it->first] == 1)
+			{
+
 			}
 		}
 	}

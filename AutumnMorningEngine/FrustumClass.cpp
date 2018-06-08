@@ -155,7 +155,7 @@ bool FrustumClass::CheckCube(float xCenter, float yCenter, float zCenter, float 
 bool FrustumClass::CheckSphere(float xCenter, float yCenter, float zCenter, float radius)
 {
 	int i;
-
+	//콜링체크
 	// Check if the radius of the sphere is inside the view frustum.
 	for(i=0; i<6; i++) 
 	{
