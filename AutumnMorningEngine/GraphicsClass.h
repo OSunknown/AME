@@ -13,7 +13,9 @@
 #include "LightShaderClass.h"
 #include "ModelListClass.h"
 #include "FrustumClass.h"
-#include"Debug.h"
+#include "Debug.h"
+#include "Math.h"
+#include "FbxLoader.h"
 /////////////
 // GLOBALS //
 /////////////
@@ -42,5 +44,6 @@ private:
 	LightClass* m_Light;
 	ModelListClass* m_ModelList;
 	FrustumClass* m_Frustum;
+	FbxLoader *fbxloader;
 };
 

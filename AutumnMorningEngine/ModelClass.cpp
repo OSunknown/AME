@@ -43,7 +43,7 @@ bool ModelClass::Initialize(ID3D11Device* device, WCHAR* textureFilename , char*
 	{
 		return false;
 	}
-
+	
 	//Release the model data
 	//ReleaseModel();
 

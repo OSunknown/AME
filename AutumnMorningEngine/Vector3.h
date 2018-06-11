@@ -44,6 +44,7 @@ public:
 	Vector3& operator/(const float&) const;
 	Vector3& operator+=(const Vector3&);
 	Vector3& operator-=(const Vector3&);
+	bool operator==(const Vector3&) const;
 public:
 	//float Dist(const Vector3 &V1, const Vector3 &V2);
 	//float DistSquared(const Vector3 &V1, const Vector3 &V2);
@@ -99,6 +100,11 @@ FORCEINLINE Vector3& Vector3::operator-=(const Vector3& v)
 	y -= v.y;
 	z -= v.z;
 	return *this;
+}
+
+FORCEINLINE bool Vector3::operator==(const Vector3 & other) const
+{
+	return x == other.x && y == other.y && z == other.z;
 }
 
 //float Vector3::Dist(const Vector3 &V1, const Vector3 &V2)

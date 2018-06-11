@@ -7,6 +7,7 @@
 #include <map>
 #include <stdlib.h>
 #include <iostream>
+#include "FbxLoader.h"
 using namespace std;
 struct FolderData
 {

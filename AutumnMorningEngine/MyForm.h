@@ -305,7 +305,12 @@ namespace AutumnMorningEngine {
 		}
 		if (listView1->Items[i]->ImageIndex == 1) //obj
 		{
+			return;
+		}
+		if (listView1->Items[i]->ImageIndex == 2) //fbx
+		{
 
+			return;
 		}
 	}
 	private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {

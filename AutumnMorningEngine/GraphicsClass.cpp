@@ -1,6 +1,5 @@
 #include "GraphicsClass.h"
-#include "Debug.h"
-#include "Math.h"
+
 
 GraphicsClass::GraphicsClass()
 {
@@ -9,6 +8,8 @@ GraphicsClass::GraphicsClass()
 	m_Model = 0;
 	m_ModelList = 0;
 	m_Frustum = 0;
+
+	fbxloader = 0;
 }
 
 
@@ -130,12 +131,22 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hWnd)
 		return false;
 	}
 
-
+	fbxloader = new FbxLoader;
+	fbxloader->Initialize(m_D3D->GetDevice(), L"./Assets/girl character.png", "./Assets/girl character anim.fbx");
+	if (!fbxloader)
+	{
+		return false;
+	}
 	return true;
 }
 
 void GraphicsClass::Shutdown()
 {
+	if (fbxloader)
+	{
+		delete fbxloader;
+		fbxloader = 0;
+	}
 	// Release the frustum object.
 	if (m_Frustum)
 	{

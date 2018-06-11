@@ -37,6 +37,9 @@
     <Filter Include="Math\private">
       <UniqueIdentifier>{47ce80e3-7edf-4481-8605-9dd5b6c4aa2f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FBX">
+      <UniqueIdentifier>{accb07ce-c350-4699-b9e5-a22c2044d862}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ApplicationAwake.cpp">
@@ -125,6 +128,9 @@
     </ClCompile>
     <ClCompile Include="MyForm.cpp">
       <Filter>리소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="FbxLoder.cpp">
+      <Filter>FBX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -229,6 +235,9 @@
     </ClInclude>
     <ClInclude Include="FileManager.h">
       <Filter>WinMain</Filter>
+    </ClInclude>
+    <ClInclude Include="FbxLoader.h">
+      <Filter>FBX</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
